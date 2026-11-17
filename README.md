@@ -9,3 +9,9 @@
     Application development:Developing a Java-based terminal application using Hibernate and HQL to interact with and manage the database in a simpler and more efficient way than with traditional JDBC.
 
     The main goal is to apply database design and object-relational mapping concepts to a real-world scenario while gaining practical experience with Hibernate and HQL.
+
+## Database Design:
+
+    ![Entity-Relationship Model](docs/entity-realtionshipe_and_relational_model.png)
+
+    In this first phase, we created the Entity-Relationship (ER) Model and the Relational Model for our company. I decided to keep things simple by creating just four basic tables rather than making the database more complex, since this is my first Hibernate project since learning it in class.
