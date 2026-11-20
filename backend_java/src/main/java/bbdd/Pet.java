@@ -19,4 +19,44 @@ public class Pet {
     @JoinColumn(name = "clientId")
     private Client client;
 
+    public Pet() {
+    }
+
+    public Pet(int petId, String name, Client client) {
+        this.petId = petId;
+        this.name = name;
+        this.client = client;
+    }
+
+    public int getPetId() {
+        return petId;
+    }
+
+    public void setPetId(int petId) {
+        this.petId = petId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
+
+    public void setAppointmentList(List<Appointment> appointmentList) {
+        this.appointmentList = appointmentList;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 }
