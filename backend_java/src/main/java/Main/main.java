@@ -1,11 +1,18 @@
 package Main;
 
+import bbdd.Client;
+import bbdd.Pet;
+
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class main {
     private static Scanner entrada = new Scanner(System.in);
     public static void main(String[] args) {
         entrada = new Scanner(System.in);
+        @SuppressWarnings("unused")
+        org.jboss.logging.Logger logger = org.jboss.logging.Logger.getLogger("org.hibernate");
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(java.util.logging.Level.OFF);
 
         try {
             int option = 0;
@@ -24,7 +31,7 @@ public class main {
                                 if (optionPet >= 1 && optionPet <= 5) {
                                     switch (optionPet) {
                                         case 1:
-
+                                        addPet();
                                             break;
                                         case 2:
 
@@ -182,5 +189,14 @@ public class main {
         System.out.println("4-View appointment");
         System.out.println("5-Exit\n");
         System.out.println("Choose option: ");
+    }
+
+    public static void addPet() {
+        System.out.println("Tell me client`s id for new pet: ");
+        int clientId=entrada.nextInt();entrada.nextLine();
+        System.out.print("Tell me pet`s name: ");
+        String petName= entrada.nextLine();
+        Pet newPet = JDBC.addPet(petName,clientId);
+
     }
 }

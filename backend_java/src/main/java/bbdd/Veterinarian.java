@@ -19,7 +19,7 @@ public class Veterinarian {
     private String speciality;
     @Column(name = "phoneNumber")
     private String phoneNumber;
-    @OneToMany(mappedBy = "Appointment")
+    @OneToMany(mappedBy = "veterinarian")
     List<Appointment> appointmentList;
 
     public Veterinarian() {

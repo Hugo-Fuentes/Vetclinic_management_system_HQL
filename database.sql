@@ -30,11 +30,13 @@ CREATE TABLE VetClinic.Veterinarian(
 );
 
 CREATE TABLE VetClinic.Appointment(
+    appointmentId int AUTO_INCREMENT,
     petId int,
     veterinarianId int,
     date date NOT NULL,
     time time NOT NULL,
-    reason text NOT NULL
+    reason text NOT NULL,
+    PRIMARY KEY(appointmentId)
 );
 
 ALTER TABLE Pet 

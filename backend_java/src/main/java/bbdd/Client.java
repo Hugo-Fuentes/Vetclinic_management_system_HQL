@@ -19,7 +19,7 @@ public class Client {
     private String dni;
     @Column(name = "phoneNumber")
     private String phoneNumber;
-    @OneToMany(mappedBy = "Pet")
+    @OneToMany(mappedBy = "client")
     List<Pet> petList;
 
     public Client() {

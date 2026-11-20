@@ -10,8 +10,11 @@
             org.hibernate.dialect.MySQLDialect
         </property>
 
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.format_sql">true</property>
-
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">false</property>
+        <mapping class="bbdd.Client"/>
+        <mapping class="bbdd.Pet"/>
+        <mapping class="bbdd.Veterinarian"/>
+        <mapping class="bbdd.Appointment"/>
     </session-factory>
 </hibernate-configuration>

@@ -13,7 +13,7 @@ public class Pet {
     private int petId;
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "Appointment")
+    @OneToMany(mappedBy = "pet")
     private List<Appointment> appointmentList;
     @ManyToOne
     @JoinColumn(name = "clientId")
@@ -24,6 +24,11 @@ public class Pet {
 
     public Pet(int petId, String name, Client client) {
         this.petId = petId;
+        this.name = name;
+        this.client = client;
+    }
+
+    public Pet(String name, Client client) {
         this.name = name;
         this.client = client;
     }

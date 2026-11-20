@@ -9,6 +9,10 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "appointment")
 public class Appointment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "appointmentId")
+    private int appointmentId;
     @Column(name = "date")
     private LocalDate date;
     @Column(name = "time")
@@ -31,6 +35,14 @@ public class Appointment {
         this.reason = reason;
         this.veterinarian = veterinarian;
         this.pet = pet;
+    }
+
+    public int getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
     public LocalDate getDate() {

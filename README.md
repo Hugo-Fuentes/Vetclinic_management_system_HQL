@@ -12,6 +12,6 @@
 
 ## Database Design:
 
-   ![Relational_model](docs/entity-realtionshipe_and_relational_model.png)
+   ![Relational_model](docs/entity-relationshipe.png)
 
     In this first phase, we created the Entity-Relationship (ER) Model and the Relational Model for our company. I decided to keep things simple by creating just four basic tables rather than making the database more complex, since this is my first Hibernate project since learning it in class.
