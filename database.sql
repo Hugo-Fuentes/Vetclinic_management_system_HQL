@@ -5,14 +5,14 @@ CREATE DATABASE VetClinic;
 USE VetClinic;
 
 CREATE TABLE VetClinic.Pet(
-    petId int,
+    petId int AUTO_INCREMENT,
     name varchar(80) NOT NULL,
     clientId int,
     PRIMARY KEY(petId)
 );
 
 CREATE TABLE VetClinic.Client(
-    clientId int,
+    clientId int AUTO_INCREMENT,
     name varchar(80) NOT NULL,
     lastName varchar(100) NOT NULL,
     dni char(9),
@@ -21,7 +21,7 @@ CREATE TABLE VetClinic.Client(
 );
 
 CREATE TABLE VetClinic.Veterinarian(
-    veterinarianId int,
+    veterinarianId int AUTO_INCREMENT,
     name varchar(80) NOT NULL,
     speciality varchar(40) NOT NULL,
     lastName varchar(100) NOT NULL,
