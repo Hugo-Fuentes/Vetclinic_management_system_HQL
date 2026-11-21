@@ -34,16 +34,16 @@ public class main {
                                         addPet();
                                             break;
                                         case 2:
-
+                                        modifyPet();
                                             break;
                                         case 3:
-
+                                        deletePet();
                                             break;
                                         case 4:
-
+                                        JDBC.viewPets();
                                             break;
                                         case 5:
-
+                                        JDBC.viewPetsByClient();
                                             break;
                                     }
                                 } else System.out.println("Choose a logical option");
@@ -155,7 +155,7 @@ public class main {
         System.out.println("2-Modify pet");
         System.out.println("3-Delete pet");
         System.out.println("4-View pets");
-        System.out.println("5-Pets by client");
+        System.out.println("5-View pets by client");
         System.out.println("6-Exit\n");
         System.out.println("Choose option: ");
     }
@@ -199,4 +199,55 @@ public class main {
         Pet newPet = JDBC.addPet(petName,clientId);
 
     }
+
+    public static void modifyPet(){
+        String change="";
+        while(!change.equalsIgnoreCase("name") && !change.equalsIgnoreCase("clientId")){
+        System.out.println("Tell me what you want to change: ");
+         change=entrada.nextLine();
+        if(change.equalsIgnoreCase("name")){
+            System.out.println("Tell me pet´s id: ");
+            int petId=entrada.nextInt();entrada.nextLine();
+            System.out.println("Tell me the new name: ");
+            String newName=entrada.nextLine();
+            Pet modifyPet=JDBC.modifyPet(petId,newName);
+        }
+        else if(change.equalsIgnoreCase("clientId")){
+            System.out.println("Tell me pet´s id: ");
+            int petId=entrada.nextInt();entrada.nextLine();
+            System.out.println("Tell me the new clientId: ");
+            int newClientId=entrada.nextInt();entrada.nextLine();
+            Pet modifyPet=JDBC.modifyPet2(petId,newClientId);
+        }
+        else System.out.println("Choose a logical option");}
+
+    }
+
+    public static void deletePet(){
+        int option=0;
+        while(option<1 || option>3){
+        System.out.println("1-Delete by name");
+        System.out.println("2-Delete by pet Id");
+        System.out.println("3-Exit\n");
+            System.out.println("Choose option: ");
+         option=entrada.nextInt();entrada.nextLine();
+        if(option<1 || option>3 ) System.out.println("Choose a logical option");}
+        switch (option){
+            case 1:
+                System.out.println("Tell me pet´s name: ");
+                String petName=entrada.nextLine();
+                Pet deletePetByName=JDBC.deletePetByName(petName);
+                break;
+
+            case 2:
+                System.out.println("Tell me pet´s id: ");
+                int petId=entrada.nextInt();entrada.nextLine();
+                Pet deletePetById=JDBC.deletePetById(petId);
+
+            case 3:
+                break;
+        }
+
+    }
+
 }

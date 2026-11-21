@@ -84,4 +84,16 @@ public class Appointment {
     public void setPet(Pet pet) {
         this.pet = pet;
     }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "appointmentId=" + appointmentId +
+                ", date=" + date +
+                ", time=" + time +
+                ", reason='" + reason + '\'' +
+                ", veterinarian=" + veterinarian.getVeterinarianId() +
+                ", pet=" + pet.getPetId() +
+                '}';
+    }
 }

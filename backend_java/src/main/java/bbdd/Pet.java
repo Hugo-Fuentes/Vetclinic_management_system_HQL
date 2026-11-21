@@ -13,7 +13,7 @@ public class Pet {
     private int petId;
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "pet")
+    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointmentList;
     @ManyToOne
     @JoinColumn(name = "clientId")
@@ -63,5 +63,14 @@ public class Pet {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "petId=" + petId +
+                ", name='" + name + '\'' +
+                ", client=" + client.getClientId() +
+                '}';
     }
 }

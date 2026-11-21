@@ -19,7 +19,7 @@ public class Veterinarian {
     private String speciality;
     @Column(name = "phoneNumber")
     private String phoneNumber;
-    @OneToMany(mappedBy = "veterinarian")
+    @OneToMany(mappedBy = "veterinarian", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Appointment> appointmentList;
 
     public Veterinarian() {
@@ -79,5 +79,16 @@ public class Veterinarian {
 
     public void setAppointmentList(List<Appointment> appointmentList) {
         this.appointmentList = appointmentList;
+    }
+
+    @Override
+    public String toString() {
+        return "Veterinarian{" +
+                "veterinarianId=" + veterinarianId +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", speciality='" + speciality + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }

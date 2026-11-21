@@ -19,7 +19,7 @@ public class Client {
     private String dni;
     @Column(name = "phoneNumber")
     private String phoneNumber;
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Pet> petList;
 
     public Client() {
@@ -79,5 +79,16 @@ public class Client {
 
     public void setPetList(List<Pet> petList) {
         this.petList = petList;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "clientId=" + clientId +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dni='" + dni + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
