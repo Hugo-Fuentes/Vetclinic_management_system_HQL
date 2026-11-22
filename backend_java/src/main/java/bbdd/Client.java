@@ -25,8 +25,15 @@ public class Client {
     public Client() {
     }
 
-    public Client(int clientId, String name, String lastName, String dni, String phoneNumber) {
+    public Client(int clientId , String name, String lastName, String dni, String phoneNumber) {
         this.clientId = clientId;
+        this.name = name;
+        this.lastName = lastName;
+        this.dni = dni;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Client(String name, String lastName, String dni, String phoneNumber) {
         this.name = name;
         this.lastName = lastName;
         this.dni = dni;
