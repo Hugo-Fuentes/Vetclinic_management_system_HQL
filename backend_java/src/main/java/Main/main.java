@@ -2,6 +2,7 @@ package Main;
 
 import bbdd.Client;
 import bbdd.Pet;
+import bbdd.Veterinarian;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -88,19 +89,19 @@ public class main {
                                 if (optionVeterinarian >= 1 && optionVeterinarian <= 6) {
                                     switch (optionVeterinarian) {
                                         case 1:
-
+                                        addVeterinarian();
                                             break;
                                         case 2:
-
+                                        modifyVeterinarian();
                                             break;
                                         case 3:
-
+                                        deleteVeterinarian();
                                             break;
                                         case 4:
-
+                                        JDBC.viewVeterinarians();
                                             break;
                                         case 5:
-
+                                        JDBC.viewVeterinariansBySpeciality();
                                             break;
 
 
@@ -184,7 +185,7 @@ public class main {
         System.out.println("2-Modify veterinarian");
         System.out.println("3-Delete veterianarian");
         System.out.println("4-View veterinarian");
-        System.out.println("5-View veterinarian appointments");
+        System.out.println("5-View veterinarian by speciality");
         System.out.println("6-Exit\n");
         System.out.println("Choose option: ");
     }
@@ -319,7 +320,7 @@ public class main {
 
 
 
-            else System.out.println("Choose a logical option");}
+            }
 
     }
 
@@ -348,6 +349,83 @@ public class main {
                 break;
         }
 
+    }
+
+    public static void addVeterinarian(){
+        System.out.println("Tell me veterinarian`s name: ");
+        String veterinarianName=entrada.nextLine();
+        System.out.println("Tell me veterinarian`s speciality: ");
+        String speciality=entrada.nextLine();
+        System.out.println("Tell me veterinarian`s last name: ");
+        String veterinarianLastName=entrada.nextLine();
+        String phoneNumber="";
+        while (phoneNumber.length()!=9){
+        System.out.println("Tell me veterinarian`s phoneNumber: ");
+         phoneNumber=entrada.nextLine();
+        if(phoneNumber.length()!=9) System.out.println("The phone number must have exactly 9 characters");}
+        Veterinarian veterinarian=JDBC.addVeterinarian(veterinarianName,speciality,veterinarianLastName,phoneNumber);
+    }
+
+    public static void modifyVeterinarian(){
+        String change="";
+        while(!change.equalsIgnoreCase("name") && !change.equalsIgnoreCase("speciality") && !change.equalsIgnoreCase("last name") && !change.equalsIgnoreCase("lastname") && !change.equalsIgnoreCase("phonenumber") && !change.equalsIgnoreCase("phone number")){
+        System.out.println("Tell me what you want to change: ");
+        change=entrada.nextLine();
+        if(change.equalsIgnoreCase("name")){
+            System.out.println("Tell me veterinarian id: ");
+            int veterinarianId=entrada.nextInt();entrada.nextLine();
+            System.out.println("Tell me new veterinarian name: ");
+            String newVeterinarianName=entrada.nextLine();
+            Veterinarian modifyVeterinarian=JDBC.modifyVeterinarianName(veterinarianId,newVeterinarianName);
+            }
+        else if(change.equalsIgnoreCase("speciality")){
+            System.out.println("Tell me veterinarian id: ");
+            int veterinarianId=entrada.nextInt();entrada.nextLine();
+            System.out.println("Tell me new veterinarian speciality: ");
+            String newVeterinarianSpeciality=entrada.nextLine();
+            Veterinarian veterinarianModify=JDBC.modifyVeterinarianSpeciality(veterinarianId,newVeterinarianSpeciality);
+        }
+        else if(change.equalsIgnoreCase("last name") || change.equalsIgnoreCase("lastname")){
+            System.out.println("Tell me veterinarian id: ");
+            int veterinarianId=entrada.nextInt();entrada.nextLine();
+            System.out.println("Tell me new veterinarian last name: ");
+            String newVeterinarianLastName=entrada.nextLine();
+            Veterinarian veterinarianModify=JDBC.modifyVeterinarianLastName(veterinarianId,newVeterinarianLastName);
+        }
+        else if(change.equalsIgnoreCase("phone number") || change.equalsIgnoreCase("phonenumber")){
+            System.out.println("Tell me veterinarian id: ");
+            int veterinarianId=entrada.nextInt();entrada.nextLine();
+            System.out.println("Tell me new veterinarian phone number: ");
+            String newVeterinarianPhoneNumber=entrada.nextLine();
+            Veterinarian veterinarianModify=JDBC.modifyVeterinarianPhoneNumber(veterinarianId,newVeterinarianPhoneNumber);
+        }
+        else System.out.println("Choose a logical option");}
+    }
+
+    public static void deleteVeterinarian(){
+        int option=0;
+        while(option<1 || option>3){
+            System.out.println("1-Delete by name");
+            System.out.println("2-Delete by client Id");
+            System.out.println("3-Exit\n");
+            System.out.println("Choose option: ");
+            option=entrada.nextInt();entrada.nextLine();
+            if(option<1 || option>3 ) System.out.println("Choose a logical option");}
+        switch (option){
+            case 1:
+                System.out.println("Tell me veterinarian name: ");
+                String veterinarianName=entrada.nextLine()+"%";
+                Veterinarian deleteVeterinarian=JDBC.deleteVeterinarianByName(veterinarianName);
+                break;
+
+            case 2:
+                System.out.println("Tell me veterianarian id: ");
+                int veterinarianId=entrada.nextInt();entrada.nextLine();
+                Veterinarian deletedVeterinarian=JDBC.deleteVeterinarianById(veterinarianId);
+
+            case 3:
+                break;
+        }
     }
 
 }

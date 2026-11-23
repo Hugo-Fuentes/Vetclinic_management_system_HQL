@@ -33,6 +33,13 @@ public class Veterinarian {
         this.phoneNumber = phoneNumber;
     }
 
+    public Veterinarian(String name, String lastName, String speciality, String phoneNumber) {
+        this.name = name;
+        this.lastName = lastName;
+        this.speciality = speciality;
+        this.phoneNumber = phoneNumber;
+    }
+
     public int getVeterinarianId() {
         return veterinarianId;
     }

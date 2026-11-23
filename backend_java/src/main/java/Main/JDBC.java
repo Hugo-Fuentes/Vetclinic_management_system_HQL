@@ -2,6 +2,7 @@ package Main;
 
 import bbdd.Client;
 import bbdd.Pet;
+import bbdd.Veterinarian;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -119,7 +120,6 @@ public class JDBC {
         sesion.save(newClient);
         sesion.getTransaction().commit();
         disconnect();
-        disconnect();
         return newClient;
     }
 
@@ -204,6 +204,99 @@ public class JDBC {
         List<Client> clientList=consult.list();
         if(clientList.isEmpty()) System.out.println("no results for this query");
         else for(Client cli : clientList) System.out.println(cli);
+        disconnect();
+    }
+
+    public static Veterinarian addVeterinarian(String veterinarianName, String speciality, String veterinarianLastName, String phoneNumber) {
+        connect();
+        Veterinarian newVeterinarian=new Veterinarian(veterinarianName,speciality,veterinarianLastName,phoneNumber);
+        sesion.beginTransaction();
+        sesion.save(newVeterinarian);
+        sesion.getTransaction().commit();
+        disconnect();
+        return newVeterinarian;
+    }
+
+    public static Veterinarian modifyVeterinarianName(int veterinarianId, String newVeterinarianName) {
+        connect();
+        sesion.beginTransaction();
+        Veterinarian veterinarianSearched=sesion.get(Veterinarian.class,veterinarianId);
+        veterinarianSearched.setName(newVeterinarianName);
+        sesion.getTransaction().commit();
+        disconnect();
+        return veterinarianSearched;
+    }
+
+    public static Veterinarian modifyVeterinarianSpeciality(int veterinarianId, String newVeterinarianSpeciality) {
+        connect();
+        sesion.beginTransaction();
+        Veterinarian veterinarianSearched=sesion.get(Veterinarian.class,veterinarianId);
+        veterinarianSearched.setSpeciality(newVeterinarianSpeciality);
+        sesion.getTransaction().commit();
+        disconnect();
+        return veterinarianSearched;
+    }
+
+    public static Veterinarian modifyVeterinarianLastName(int veterinarianId, String newVeterianrianLastname) {
+        connect();
+        sesion.beginTransaction();
+        Veterinarian veterinarianSearched=sesion.get(Veterinarian.class,veterinarianId);
+        veterinarianSearched.setLastName(newVeterianrianLastname);
+        sesion.getTransaction().commit();
+        disconnect();
+        return veterinarianSearched;
+    }
+
+    public static Veterinarian modifyVeterinarianPhoneNumber(int veterinarianId, String newVeterinarianPhoneNumber) {
+        connect();
+        sesion.beginTransaction();
+        Veterinarian veterinarianSearched=sesion.get(Veterinarian.class,veterinarianId);
+        veterinarianSearched.setPhoneNumber(newVeterinarianPhoneNumber);
+        sesion.getTransaction().commit();
+        disconnect();
+        return veterinarianSearched;
+    }
+
+    public static Veterinarian deleteVeterinarianByName(String veterinarianName) {
+        connect();
+        Query consult=sesion.createQuery("SELECT vet.veterinarianId FROM Veterinarian vet WHERE vet.name LIKE ?1");
+        consult.setParameter(1,veterinarianName);
+        int veterinarianId=(int) consult.getSingleResult();
+        Veterinarian veterinarianSearched=sesion.get(Veterinarian.class,veterinarianId);
+        sesion.beginTransaction();
+        sesion.remove(veterinarianSearched);
+        sesion.getTransaction().commit();
+        return veterinarianSearched;
+    }
+
+    public static Veterinarian deleteVeterinarianById(int veterinarianId) {
+        connect();
+        Veterinarian veterinarianSearched=sesion.get(Veterinarian.class,veterinarianId);
+        sesion.beginTransaction();
+        sesion.remove(veterinarianSearched);
+        sesion.getTransaction().commit();
+        disconnect();
+        return veterinarianSearched;
+    }
+
+    public static void viewVeterinarians(){
+        connect();
+        Query consult= sesion.createQuery("FROM Veterinarian vet");
+        List<Veterinarian> veterinarianList=consult.list();
+        if(veterinarianList.isEmpty()) System.out.println("no results for this query");
+        else for(Veterinarian vet: veterinarianList) System.out.println(vet);
+        disconnect();
+    }
+
+    public static void viewVeterinariansBySpeciality(){
+        connect();
+        System.out.println("Tell me speciality: ");
+        String speciality=entrada.nextLine();
+        Query consult= sesion.createQuery("FROM Veterinarian vet WHERE vet.speciality like ?1");
+        consult.setParameter(1,speciality+"%");
+        List<Veterinarian> veterinarianList=consult.list();
+        if(veterinarianList.isEmpty()) System.out.println("no results for this query");
+        else for(Veterinarian vet : veterinarianList) System.out.println(vet);
         disconnect();
     }
 }
