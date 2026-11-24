@@ -1,5 +1,6 @@
 package Main;
 
+import bbdd.Appointment;
 import bbdd.Client;
 import bbdd.Pet;
 import bbdd.Veterinarian;
@@ -8,6 +9,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Scanner;
 
@@ -297,6 +300,92 @@ public class JDBC {
         List<Veterinarian> veterinarianList=consult.list();
         if(veterinarianList.isEmpty()) System.out.println("no results for this query");
         else for(Veterinarian vet : veterinarianList) System.out.println(vet);
+        disconnect();
+    }
+
+    public static Appointment addAppointment(LocalDate date2, LocalTime time2, String reason, int petId, int veterinarianId) {
+        connect();
+        Pet petSearched=sesion.get(Pet.class,petId);
+        Veterinarian veterinarianSearched=sesion.get(Veterinarian.class,veterinarianId);
+        Appointment newAppointment=new Appointment(date2,time2,reason,veterinarianSearched,petSearched);
+        sesion.beginTransaction();
+        sesion.save(newAppointment);
+        sesion.getTransaction().commit();
+        disconnect();
+        return newAppointment;
+    }
+
+    public static Appointment modifyAppointmentDateTime(int appointmentId, LocalDate newDate2, LocalTime newTime2) {
+        connect();
+        sesion.beginTransaction();
+        Appointment appointmentSearched=sesion.get(Appointment.class,appointmentId);
+        appointmentSearched.setDate(newDate2);
+        appointmentSearched.setTime(newTime2);
+        sesion.getTransaction().commit();
+        disconnect();
+        return appointmentSearched;
+    }
+
+    public static Appointment modifyAppointmenTime(int appointmentId, LocalTime newTime2) {
+        connect();
+        sesion.beginTransaction();
+        Appointment appointmentSearched=sesion.get(Appointment.class,appointmentId);
+        appointmentSearched.setTime(newTime2);
+        sesion.getTransaction().commit();
+        disconnect();
+        return appointmentSearched;
+    }
+
+    public static Appointment modifyAppointmentReason(int appointmentId, String newReason) {
+        connect();
+        sesion.beginTransaction();
+        Appointment appointmentSearched=sesion.get(Appointment.class,appointmentId);
+        appointmentSearched.setReason(newReason);
+        sesion.getTransaction().commit();
+        disconnect();
+        return appointmentSearched;
+    }
+
+    public static Appointment deleteAppointment(int appoitmentId) {
+        connect();
+        Appointment appointmentSearched=sesion.get(Appointment.class,appoitmentId);
+        sesion.beginTransaction();
+        sesion.remove(appointmentSearched);
+        sesion.getTransaction().commit();
+        disconnect();
+        return appointmentSearched;
+    }
+
+    public static void viewAppointments(){
+        connect();
+        Query consult= sesion.createQuery("FROM Appointment apo");
+        List<Appointment> appointmentList=consult.list();
+        if(appointmentList.isEmpty()) System.out.println("There are no results for this query");
+        else for(Appointment apo: appointmentList) System.out.println(apo);
+        disconnect();
+    }
+
+    public static void viewAppointmentsByPetName(){
+        connect();
+        System.out.println("Tell me the pet name: ");
+        String petName=entrada.nextLine();
+        Query consult=sesion.createQuery("FROM Appointment apo WHERE apo.pet.name like ?1");
+        consult.setParameter(1,petName+"%");
+        List<Appointment> appointmentList=consult.list();
+        if(appointmentList.isEmpty()) System.out.println("There are no appointments for this pet");
+        else for(Appointment apo: appointmentList) System.out.println(apo);
+        disconnect();
+    }
+
+    public static void viewAppointmentsByVeterinarianName(){
+        connect();
+        System.out.println("Tell me the veterinarian name: ");
+        String veterinarianName=entrada.nextLine();
+        Query consult=sesion.createQuery("FROM Appointment apo WHERE apo.veterinarian.name like ?1");
+        consult.setParameter(1,veterinarianName+"%");
+        List<Appointment> appointmentList=consult.list();
+        if(appointmentList.isEmpty()) System.out.println("There are no appointments for this veterinarian");
+        else for(Appointment apo: appointmentList) System.out.println(apo);
         disconnect();
     }
 }
